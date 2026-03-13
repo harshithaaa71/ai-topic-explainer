@@ -55,11 +55,16 @@ export default function Home() {
     setLoading(false);
   };
 
+  const clearAll = () => {
+    setTopic("");
+    setExplanation("");
+  };
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black to-gray-900 text-white px-6">
 
       <h1 className="text-4xl font-bold mb-2 text-center">
-        AI Study Topic Explainer
+        Study with AI
       </h1>
 
       <p className="text-gray-400 mb-8 text-center max-w-md">
@@ -73,12 +78,21 @@ export default function Home() {
         onChange={(e) => setTopic(e.target.value)}
       />
 
-      <button
-        onClick={explainTopic}
-        className="bg-blue-500 hover:bg-blue-600 transition px-6 py-2 rounded-lg font-medium"
-      >
-        Explain Topic
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={explainTopic}
+          className="bg-blue-500 hover:bg-blue-600 transition px-6 py-2 rounded-lg font-medium"
+        >
+          Explain Topic
+        </button>
+
+        <button
+          onClick={clearAll}
+          className="bg-gray-600 hover:bg-gray-700 transition px-6 py-2 rounded-lg font-medium"
+        >
+          Clear
+        </button>
+      </div>
 
       {loading && (
         <p className="mt-4 text-gray-300">Generating explanation...</p>
