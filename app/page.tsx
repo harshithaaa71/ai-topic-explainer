@@ -7,6 +7,20 @@ export default function Home() {
   const [explanation, setExplanation] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const typeText = (text: string) => {
+    let i = 0;
+    setExplanation("");
+
+    const interval = setInterval(() => {
+      setExplanation((prev) => prev + text.charAt(i));
+      i++;
+
+      if (i >= text.length) {
+        clearInterval(interval);
+      }
+    }, 20);
+  };
+
   const explainTopic = async () => {
     if (!topic) {
       alert("Please enter a topic");
@@ -28,7 +42,7 @@ export default function Home() {
       const data = await res.json();
 
       if (data.explanation) {
-        setExplanation(data.explanation);
+        typeText(data.explanation);
       } else {
         setExplanation("Error generating explanation.");
       }
@@ -49,7 +63,7 @@ export default function Home() {
       </h1>
 
       <p className="text-gray-400 mb-8 text-center max-w-md">
-        Enter any study topic and receive a simple AI-generated explanation.
+        Enter any study topic and get a simple AI explanation.
       </p>
 
       <input
@@ -71,7 +85,7 @@ export default function Home() {
       )}
 
       {explanation && (
-        <div className="mt-6 max-w-xl bg-gray-800 p-5 rounded-lg shadow-lg leading-relaxed">
+        <div className="mt-6 max-w-xl bg-gray-800 p-5 rounded-lg shadow-lg leading-relaxed whitespace-pre-line">
           {explanation}
         </div>
       )}
